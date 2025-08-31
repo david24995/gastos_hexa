@@ -1,0 +1,35 @@
+{
+  "name": "gastos",
+  "version": "1.0.0",
+  "description": "Aprendiendo arquitectura hexagonal",
+  "keywords": [
+    "ts",
+    "js",
+    "haxagonal",
+    "gastos"
+  ],
+  "homepage": "https://github.com/david24995/gastos_hexa#readme",
+  "bugs": {
+    "url": "https://github.com/david24995/gastos_hexa/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/david24995/gastos_hexa.git"
+  },
+  "license": "ISC",
+  "author": "David Huamaccto Chate",
+  "type": "commonjs",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "dev": "tsnd --respawn ./src/index.ts",
+    "build": "rimraf ./dist && tsc",
+    "start": "npm run build && node ./dist/index.js"
+  },
+  "devDependencies": {
+    "@types/node": "^24.3.0",
+    "rimraf": "^6.0.1",
+    "ts-node-dev": "^2.0.0",
+    "typescript": "^5.9.2"
+  }
+}
