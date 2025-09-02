@@ -27,6 +27,7 @@
     "start": "npm run build && node ./dist/index.js"
   },
   "devDependencies": {
+    "@types/bcrypt": "^6.0.0",
     "@types/node": "^24.3.0",
     "prisma": "^6.15.0",
     "rimraf": "^6.0.1",
@@ -35,6 +36,7 @@
   },
   "dependencies": {
     "@prisma/client": "^6.15.0",
+    "bcrypt": "^6.0.0",
     "dotenv": "^17.2.1",
     "env-var": "^7.5.0"
   }

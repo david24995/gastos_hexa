@@ -1,15 +1,13 @@
 import { PrismaClient } from '@prisma/client';
 import { UsuarioRepository } from '../application/usuario.repository';
 import { UsuarioModel } from '../domain/usuario.model';
-import {
-  mappingUsuarioDto,
-  ResponseUsuarioDto,
-} from '../application/usuario.dto';
+import { ResponseUsuarioDto } from '../application/usuario.dto';
+import { mappingUsuarioDto } from './usuario.mapping';
 
 const prisma = new PrismaClient();
 
 export class UsuarioOperation implements UsuarioRepository {
-  async list(): Promise<ResponseUsuarioDto> {
+  async list(): Promise<ResponseUsuarioDto[]> {
     const users = await prisma.usuario.findMany();
 
     const usersMapped = mappingUsuarioDto(users);
@@ -22,6 +20,10 @@ export class UsuarioOperation implements UsuarioRepository {
         id,
       },
     });
+
+    if (!user) {
+      throw new Error(`Usuario con id ${id} no encontrado`);
+    }
 
     const userMapped = mappingUsuarioDto(user);
 
