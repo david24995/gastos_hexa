@@ -1,55 +1,74 @@
-import { PrismaClient } from '../../generated/prisma';
-import { Estado } from '../../shared/domain/estado.model';
+import { PrismaClient } from '@prisma/client';
 import { UsuarioRepository } from '../application/usuario.repository';
 import { UsuarioModel } from '../domain/usuario.model';
+import {
+  mappingUsuarioDto,
+  ResponseUsuarioDto,
+} from '../application/usuario.dto';
 
 const prisma = new PrismaClient();
 
 export class UsuarioOperation implements UsuarioRepository {
-  async list(): Promise<UsuarioModel[]> {
-    const users = await prisma.user.findMany();
+  async list(): Promise<ResponseUsuarioDto> {
+    const users = await prisma.usuario.findMany();
 
-    // return users.map((usr) => ({ id: usr.id,  }))
-    return [];
+    const usersMapped = mappingUsuarioDto(users);
+
+    return usersMapped;
   }
-  getOne(id: number): Promise<UsuarioModel> {
-    return Promise.resolve({
-      id: 1,
-      nombre: 'David',
-      apellido: 'Huamaccto',
-      email: 'davidhuamaccto24995@gmail.com',
-      fecha_nacimiento: new Date('2025-09-24'),
-      estado: Estado.ACTIVO,
+  async getOne(id: number): Promise<ResponseUsuarioDto> {
+    const user = await prisma.usuario.findFirst({
+      where: {
+        id,
+      },
     });
+
+    const userMapped = mappingUsuarioDto(user);
+
+    return userMapped;
   }
-  create(usuario: UsuarioModel): Promise<UsuarioModel> {
-    return Promise.resolve({
-      id: 1,
-      nombre: 'David',
-      apellido: 'Huamaccto',
-      email: 'davidhuamaccto24995@gmail.com',
-      fecha_nacimiento: new Date('2025-09-24'),
-      estado: Estado.ACTIVO,
+  async create(usuario: UsuarioModel): Promise<ResponseUsuarioDto> {
+    const { nombre, apellido, email, fecha_nacimiento, password } = usuario;
+
+    const newUser = await prisma.usuario.create({
+      data: {
+        nombre,
+        apellido,
+        email,
+        fecha_nacimiento,
+        password,
+      },
     });
+
+    const mappedUser = mappingUsuarioDto(newUser);
+
+    return mappedUser;
   }
-  update(id: number, usuario: UsuarioModel): Promise<UsuarioModel> {
-    return Promise.resolve({
-      id: 1,
-      nombre: 'David',
-      apellido: 'Huamaccto',
-      email: 'davidhuamaccto24995@gmail.com',
-      fecha_nacimiento: new Date('2025-09-24'),
-      estado: Estado.ACTIVO,
+  async update(id: number, usuario: UsuarioModel): Promise<ResponseUsuarioDto> {
+    const { nombre, apellido, email, fecha_nacimiento, password } = usuario;
+
+    const userUpdated = await prisma.usuario.update({
+      where: { id },
+      data: {
+        nombre,
+        apellido,
+        email,
+        fecha_nacimiento,
+        password,
+      },
     });
+
+    const userMapped = mappingUsuarioDto(userUpdated);
+
+    return userMapped;
   }
-  delete(id: number): Promise<UsuarioModel> {
-    return Promise.resolve({
-      id: 1,
-      nombre: 'David',
-      apellido: 'Huamaccto',
-      email: 'davidhuamaccto24995@gmail.com',
-      fecha_nacimiento: new Date('2025-09-24'),
-      estado: Estado.ACTIVO,
+  async delete(id: number): Promise<ResponseUsuarioDto> {
+    const userDeleted = await prisma.usuario.delete({
+      where: { id },
     });
+
+    const userMapped = mappingUsuarioDto(userDeleted);
+
+    return userMapped;
   }
 }

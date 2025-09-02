@@ -1,9 +1,10 @@
 import { UsuarioModel } from '../domain/usuario.model';
+import { ResponseUsuarioDto } from './usuario.dto';
 
 export interface UsuarioRepository {
-  list(): Promise<UsuarioModel[]>;
-  getOne(id: number): Promise<UsuarioModel>;
-  create(usuario: UsuarioModel): Promise<UsuarioModel>;
-  update(id: number, usuario: UsuarioModel): Promise<UsuarioModel>;
-  delete(id: number): Promise<UsuarioModel>;
+  list(): Promise<ResponseUsuarioDto>;
+  getOne(id: number): Promise<ResponseUsuarioDto>;
+  create(usuario: UsuarioModel): Promise<ResponseUsuarioDto>;
+  update(id: number, usuario: UsuarioModel): Promise<ResponseUsuarioDto>;
+  delete(id: number): Promise<ResponseUsuarioDto>;
 }
