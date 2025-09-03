@@ -5,7 +5,7 @@ import { CategoriaRepository } from './categoria.repository';
 export class CategoriaUseCase {
   constructor(private readonly categoriaRepository: CategoriaRepository) {}
 
-  async list(): Promise<ResponseCategoriaDto> {
+  async list(): Promise<ResponseCategoriaDto[]> {
     return this.categoriaRepository.list();
   }
   async getOne(id: number): Promise<CategoriaModel> {

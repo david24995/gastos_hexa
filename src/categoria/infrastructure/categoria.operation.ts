@@ -1,15 +1,13 @@
 import { PrismaClient } from '@prisma/client';
 import { CategoriaRepository } from '../application/categoria.repository';
 import { CategoriaModel } from '../domain/categoria.model';
-import {
-  mappingCategoriaDto,
-  ResponseCategoriaDto,
-} from '../application/categoria.dto';
+import { ResponseCategoriaDto } from '../application/categoria.dto';
+import { mappingCategoriaDto } from './categoria.mapping';
 
 const prisma = new PrismaClient();
 
 export class CategoriaOperation implements CategoriaRepository {
-  async list(): Promise<ResponseCategoriaDto> {
+  async list(): Promise<ResponseCategoriaDto[]> {
     const categorias = await prisma.categoria.findMany();
 
     const mappedCategorias = mappingCategoriaDto(categorias);
