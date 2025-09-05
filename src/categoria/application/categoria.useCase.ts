@@ -8,16 +8,19 @@ export class CategoriaUseCase {
   async list(): Promise<ResponseCategoriaDto[]> {
     return this.categoriaRepository.list();
   }
-  async getOne(id: number): Promise<CategoriaModel> {
+  async getOne(id: number): Promise<ResponseCategoriaDto> {
     return this.categoriaRepository.getOne(id);
   }
-  async create(categoria: CategoriaModel): Promise<CategoriaModel> {
+  async create(categoria: CategoriaModel): Promise<ResponseCategoriaDto> {
     return this.categoriaRepository.create(categoria);
   }
-  async update(id: number, categoria: CategoriaModel): Promise<CategoriaModel> {
+  async update(
+    id: number,
+    categoria: CategoriaModel
+  ): Promise<ResponseCategoriaDto> {
     return this.categoriaRepository.update(id, categoria);
   }
-  async delete(id: number): Promise<CategoriaModel> {
+  async delete(id: number): Promise<ResponseCategoriaDto> {
     return this.categoriaRepository.delete(id);
   }
 }
